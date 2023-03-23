@@ -169,7 +169,7 @@ body {
       100vh
     ); // 100vh - height of the navbar You can find the nave height in NavBar.module.scss or navbar css folder
     margin: 0;
-    width: 300px;
+    // width: 300px;
     position: fixed;
     transition: 0.15s all ease-in;
     // width
@@ -206,7 +206,7 @@ body {
     z-index: 900;
     .dashpage {
       z-index: 1;
-      margin-left: 200px;
+      // margin-left: 200px;
     }
   }
 
