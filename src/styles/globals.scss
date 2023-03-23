@@ -1,0 +1,637 @@
+//! tailwind config (Start)
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+//! tailwind config (End)
+
+//! fonts imported (Start)
+// importing DM Sans from adobe
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+
+// importing lato from adobe
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+//! fonts imported (End)
+
+//! variables (Start)
+$color-orange: #ff5e0d;
+$color-grey: #2f2c2c;
+$font: "DM Sans";
+$color-white: #ffffff;
+//! variables (End)
+
+//! Timonwa font CSS Reset
+//! Default h1-h6 and p styling and body font-size (Start)
+//! SMALL SCREEN FIRST RWD
+// the ffg queries determine the font size, line height and margin bottom of the elements in the file
+
+//* small screen of 0px to 608px
+// body
+body {
+  font-size: 16px;
+}
+// text elements
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 130%;
+}
+p {
+  line-height: 130%;
+  margin-bottom: 0.5rem;
+}
+h1 {
+  font-size: 2.125rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+h5 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+//* large screen width of 960px to 1024px
+@media screen and (min-width: 960px) {
+  // body
+  body {
+    font-size: 17px;
+  }
+  // text elements
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    line-height: 140%;
+  }
+}
+
+//! Default h1-h6 and p styling and body font-size (End) /
+
+//! global styles (Start)
+//* all contents
+* {
+  box-sizing: border-box;
+}
+
+//* body
+html,
+body {
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  font-family: $font;
+  color: $color-grey;
+  background-color: #fafafa;
+}
+
+.map {
+  width: 100%;
+
+  height: 300px;
+  border-radius: 15px;
+}
+//* loading screen when web pages initial loads
+.loader {
+  @apply grid justify-center items-center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(50, 50, 50, 0.5);
+  z-index: 2000;
+  cursor: pointer;
+}
+
+//* scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+  height: 50px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff4576;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+//* wrapper that holds the left view that shows the side bar and the right view that shows the page contents
+.wrapper {
+  margin: 0;
+  padding: 0;
+
+  .bottom {
+    display: flex;
+  }
+  // the left side of the layout that holds the side bar
+  .left {
+    z-index: 950;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    overflow-x: hidden;
+    padding: 0;
+
+    height: calc(
+      100vh
+    ); // 100vh - height of the navbar You can find the nave height in NavBar.module.scss or navbar css folder
+    margin: 0;
+    width: 300px;
+    position: fixed;
+    transition: 0.15s all ease-in;
+    // width
+    ::-webkit-scrollbar {
+      width: 20px;
+      height: 50px;
+    }
+
+    // Track
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    // Handle
+    ::-webkit-scrollbar-thumb {
+      background: $color-orange;
+    }
+
+    // Handle on hover
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+
+  // the right side of the layout that displays all the pages
+  .right {
+    height: 100%;
+    overflow-x: hidden;
+    margin-left: 100px;
+    transition: 0.15s all ease-in;
+    width: calc(100% - 100px);
+    z-index: 1;
+
+    z-index: 900;
+    .dashpage {
+      z-index: 1;
+      margin-left: 200px;
+    }
+  }
+
+  // container that wraps the content for each pages
+  .container {
+    padding-top: 50px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fafafa;
+  }
+
+  // all the sections inside a container
+  .section {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 50px;
+    margin-bottom: 60px;
+  }
+}
+@media (max-width: 768px) {
+  .wrapper {
+    .left {
+      width: 0px;
+    }
+    .right {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .section {
+      padding: 0 20px;
+      margin-bottom: 40px;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .wrapper {
+    .container {
+      padding-top: 30px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+//* input stylings
+// remove outline when the user is inputting details
+input:focus,
+select:focus {
+  outline: none;
+}
+//  checkbox
+input[type="checkbox"] {
+  transform: scale(1);
+  width: unset;
+  height: unset;
+  border: 1px solid #ff5e0d;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-top: 1px;
+  line-height: 5px;
+  filter: hue-rotate(157deg);
+}
+// radio
+input[type="radio"] {
+  transform: scale(1);
+  width: unset;
+  height: unset;
+  border: 1px solid #ff5e0d;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-top: 1px;
+  line-height: 5px;
+  filter: hue-rotate(157deg);
+}
+// date input icon
+::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23cecece" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+}
+//! global styles (End)
+
+//! react swiper slider overrides
+// ad image in home page
+.adImage {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  img {
+    border-radius: 5px;
+  }
+}
+
+//* popular trips in home page
+.popularTrips {
+  .swiper {
+    z-index: 0;
+    .swiper-slide {
+      width: initial;
+      height: initial;
+    }
+  }
+}
+
+//* insurance reviews in home page
+.portfolio {
+  .swiper {
+    .swiper-slide {
+      width: initial;
+      height: initial;
+    }
+  }
+}
+//* flight dates in flight results page
+.flightDates {
+  .swiper {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 20px rgba(67, 67, 67, 0.05);
+    // width: calc(100% - 120px);
+    position: relative;
+    .swiper-slide {
+      padding: 20px;
+      min-width: 150px;
+      width: 150px;
+      max-width: 150px;
+      text-align: center;
+      transition: color 300ms;
+      // border: 1px solid #000;
+    }
+    .swiper-slide:hover {
+      color: #ff5e0d !important;
+    }
+    .icon {
+      display: none;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto;
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 14px;
+      font-weight: 500;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .swiper-slide:first-child {
+      color: #ff5e0d;
+      .icon {
+        display: block;
+      }
+      .price {
+        display: none;
+      }
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      // border: 1px solid #000;
+      color: inherit;
+      width: 60px;
+      min-width: 60px;
+    }
+    .swiper-button-prev::after {
+      font-size: 1rem;
+    }
+    .swiper-button-next::after {
+      font-size: 1rem;
+    }
+    .swiper-button-prev {
+      // left: -10px;
+    }
+    .swiper-button-next {
+      // right: -10px;
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      color: #ff5e0d;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    .swiper {
+      .swiper {
+        width: calc(100% - 60px);
+      }
+      .swiper-button-prev,
+      .swiper-button-next {
+        width: 30px;
+        min-width: 30px;
+      }
+      .swiper-button-prev {
+        // left: 0px;
+      }
+      .swiper-button-next {
+        // right: 0px;
+      }
+    }
+  }
+}
+
+//* date picker
+// no longer in use
+// .react-datepicker-popper {
+//   z-index: 10 !important;
+// }
+// .react-datepicker__header,
+// .react-datepicker__day--keyboard-selected,
+// .react-datepicker__day--in-range,
+// .react-datepicker__day--in-selecting-range {
+//   background-color: $color-orange !important;
+//   .react-datepicker__current-month,
+//   .react-datepicker__day-name {
+//     color: $color-white;
+//   }
+// }
+// .react-datepicker__close-icon::after {
+//   cursor: pointer;
+//   background-color: $color-orange !important;
+// }
+
+//* new react date pickerReact-dates
+.flightEngine {
+  .DateRangePickerInput {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    input {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    input::placeholder {
+      color: currentColor;
+      padding-left: 5px;
+      font-weight: 500;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .DateInput_input {
+      border-radius: 6px;
+    }
+  }
+  label[for="date"] {
+    z-index: 1 !important;
+    background: #fff;
+    height: 50px;
+    margin-right: 10px;
+    border: 1px solid #2f2c2c;
+    min-width: calc((100% - 90px) / 3);
+    width: calc((100% - 90px) / 3);
+    max-width: calc((100% - 90px) / 3);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (max-width: 980px) {
+      min-width: 100%;
+      width: 100%;
+      max-width: 100%;
+      margin-right: 0;
+    }
+    .inputIcon {
+      min-width: 15px;
+      width: 15px;
+      max-width: 15px;
+      height: 100%;
+      margin: 0 15px;
+      margin-left: 20px;
+    }
+    & > div,
+    .SingleDatePicker,
+    .SingleDatePicker > div,
+    .SingleDatePickerInput,
+    .DateInput {
+      height: 100%;
+      border-radius: 6px;
+      width: 100%;
+      border: none;
+      color: currentColor;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .SingleDatePicker .DateInput .DateInput_input,
+  .SingleDatePickerInput .DateInput .DateInput_input {
+    padding: 0 !important;
+  }
+  .SingleDatePicker input {
+    font-size: 0.9rem;
+  }
+  .SingleDatePicker input::placeholder {
+    color: currentColor;
+    padding-left: 5px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  .SingleDatePicker .SingleDatePickerInput__withBorder:hover,
+  .SingleDatePickerInput .SingleDatePickerInput__withBorder:hover,
+  .SingleDatePicker
+    .SingleDatePickerInput__withBorder
+    .DateInput_input__focused,
+  .SingleDatePickerInput
+    .SingleDatePickerInput__withBorder
+    .DateInput_input__focused {
+    border: none !important;
+  }
+
+  // the calender
+  .SingleDatePicker_picker,
+  .SingleDatePicker_picker_1,
+  .SingleDatePicker_picker__directionLeft,
+  .SingleDatePicker_picker__directionLeft_2 {
+    top: 60px !important;
+    left: initial !important;
+    right: 0;
+  }
+}
+
+//* multi range slider
+.mrs-container {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .slider {
+    position: relative;
+    min-width: 260px;
+    width: 100%;
+  }
+
+  .slider__track,
+  .slider__range,
+  .slider__left-value,
+  .slider__right-value {
+    position: absolute;
+  }
+
+  .slider__track,
+  .slider__range {
+    border-radius: 3px;
+    height: 5px;
+  }
+
+  .slider__track {
+    background-color: #ffece2;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .slider__range {
+    background-color: #ffece2;
+    z-index: 2;
+  }
+
+  .slider__left-value,
+  .slider__right-value {
+    color: currentColor;
+    margin-top: 20px;
+    bottom: 10px;
+  }
+
+  .slider__right-value {
+    right: 0px;
+  }
+
+  /* Removing the default appearance */
+  .thumb,
+  .thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    min-width: 260px;
+    width: 100%;
+    outline: none;
+  }
+
+  .thumb--zindex-3 {
+    z-index: 3;
+  }
+
+  .thumb--zindex-4 {
+    z-index: 4;
+  }
+
+  .thumb--zindex-5 {
+    z-index: 5;
+  }
+
+  /* For Chrome browsers */
+  .thumb::-webkit-slider-thumb {
+    background-color: #ff5e0d;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px #ff5e0d;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    pointer-events: all;
+    position: relative;
+  }
+
+  /* For Firefox browsers */
+  .thumb::-moz-range-thumb {
+    background-color: #ff5e0d;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px #ff5e0d;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    pointer-events: all;
+    position: relative;
+  }
+}
