@@ -181,7 +181,7 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       key: "1",
       date: "20-03-2023",
       category: "Food",
-      order_id: "CHFFUURUU-445",
+      order_id: "D247276267467",
       amount: "$200",
       status: "Pending",
       payment: "Paid",
@@ -190,16 +190,22 @@ const CustomTable: FunctionComponent<TableProps> = () => {
     },
   ];
 
-  const [orders, setOrders] = useState<Order>(data);
+  const [orders, setOrders] = useState<Order[]>(data);
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
   const searchByOrderId = (orderId: string) => {
-    const result = data.filter((item) => item.order_id === orderId);
+    // const result = data.filter((item) => item.order_id === orderId);
+    const result = data.filter((item) => {
+      return Object.values(item)
+        .join("")
+        .toLowerCase()
+        .includes(orderId.toLowerCase());
+    });
     if (result) {
       setOrders(result);
     } else {
-      return data;
+      setOrders(data);
     }
 
     console.log(result);
@@ -209,7 +215,7 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: (text: any) => <a>{text}</a>,
     },
     {
       title: "Category",
@@ -230,7 +236,7 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       title: "Order Status",
       dataIndex: "status",
       key: "status",
-      render: (text, record) => (
+      render: (text: any, record: any) => (
         <span>
           {record.status === "Completed" && <Tag color={"green"}>{text}</Tag>}
           {record.status === "Pending" && <Tag color={"yellow"}>{text}</Tag>}
@@ -243,11 +249,29 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       title: "Payment",
       dataIndex: "payment",
       key: "payment",
-      render: (text, record) => (
+      render: (text: any, record: any) => (
         <span>
-          {record.payment === "Paid" && <Tag color={"green"}>{text}</Tag>}
-          {record.payment === "Pending" && <Tag color={"yellow"}>{text}</Tag>}
-          {record.payment === "Failed" && <Tag color={"red"}>{text}</Tag>}
+          {record.payment === "Paid" && (
+            <Tag
+              onClick={() => alert(`This transaction has being paid for`)}
+              color={"green"}
+            >
+              {text}
+            </Tag>
+          )}
+          {record.payment === "Pending" && (
+            <Tag
+              onClick={() => alert(`This transaction is pending`)}
+              color={"yellow"}
+            >
+              {text}
+            </Tag>
+          )}
+          {record.payment === "Failed" && (
+            <Tag onClick={() => alert(`This transaction failed`)} color={"red"}>
+              {text}
+            </Tag>
+          )}
         </span>
       ),
     },
@@ -255,7 +279,7 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       title: "Assignee",
       dataIndex: "assignee",
       key: "assignee",
-      render: (text, record) => (
+      render: (text: any, record: any) => (
         <span>
           <Select
             defaultValue={record.assignee}
@@ -279,7 +303,7 @@ const CustomTable: FunctionComponent<TableProps> = () => {
       title: "Progress",
       dataIndex: "progress",
       key: "progress",
-      render: (text, record) => (
+      render: (text: any, record: any) => (
         <span>
           <Select
             defaultValue={record.progress}
@@ -300,10 +324,10 @@ const CustomTable: FunctionComponent<TableProps> = () => {
   return (
     <div className={styles.container}>
       <input
-        placeholder="Search deliveries"
+        placeholder="Search deliveries with Order ID"
         onChange={(e) => searchByOrderId(e.target.value)}
       />
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={orders} />
     </div>
   );
 };
